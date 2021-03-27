@@ -110,6 +110,19 @@ function attach(el, event, func, userdelay) {
 }
 
 exports.attach = attach;
+function closest(el, selector) {
+  var element = el;
+  var closest = el.parentNode.querySelector(selector) || false;
+
+  while (closest == false) {
+    element = element.parentNode;
+    closest = element.parentNode.querySelector(selector) || false;
+  }
+
+  return closest;
+}
+
+exports.closest = closest;
 function containsClass(el, className) {
   return (' ' + el.className + ' ').indexOf(' ' + className + ' ') > -1;
 }
