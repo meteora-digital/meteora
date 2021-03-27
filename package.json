@@ -1,0 +1,28 @@
+{
+  "name": "meteora",
+  "version": "0.0.0",
+  "description": "A library of common javascript functions to make life easier.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "keywords": [
+    "library",
+    "helpers",
+    "es6",
+    "functions",
+    "javascript",
+    "js"
+  ],
+  "author": "Emmanuel Davies",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.2.1"
+  }
+}
