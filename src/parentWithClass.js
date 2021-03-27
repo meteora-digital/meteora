@@ -1,11 +1,7 @@
 function parentWithClass(el, className) {
-	let parent = el.parentNode;
-
-	while(!parent.classList.contains(className)) {
-		parent = parent.parentNode;
-	}
-
-	return parent;
+  let parent = el.parentNode;
+  while((' ' + parent.className + ' ').indexOf(' ' + className + ' ') == -1) parent = parent.parentNode;
+  return parent;
 }
 
 exports.parentWithClass = parentWithClass;
