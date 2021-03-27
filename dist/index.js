@@ -1,3 +1,15 @@
+function Event(event, params) {
+  params = params || {
+    bubbles: false,
+    cancelable: false,
+    detail: undefined
+  };
+  var evt = document.createEvent('CustomEvent');
+  evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+  return evt;
+}
+
+exports.Event = Event;
 function ajax(options) {
   var httpRequest = new XMLHttpRequest();
   var settings = Object.assign({
@@ -103,18 +115,6 @@ function containsClass(el, className) {
 }
 
 exports.containsClass = containsClass;
-function Event(event, params) {
-  params = params || {
-    bubbles: false,
-    cancelable: false,
-    detail: undefined
-  };
-  var evt = document.createEvent('CustomEvent');
-  evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-  return evt;
-}
-
-exports.Event = Event;
 function drawSVG(svg) {
   var paths = svg.querySelectorAll('circle, ellipsis, line, polygon, polyline, rect, path'); // Initialize
 
@@ -179,10 +179,8 @@ exports.getTransformValues = getTransformValues;
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function loopObject(object, func) {
-  if (object && _typeof(object) === 'object') {
-    for (key in object) {
-      func(key, object[key]);
-    }
+  if (object && _typeof(object) === 'object') for (key in object) {
+    func(key, object[key]);
   }
 }
 
@@ -202,21 +200,13 @@ exports.nodeArray = nodeArray;
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function objectAssign(defaultSettings, userSettings) {
-  for (var _key in defaultSettings) {
-    if (userSettings[_key] !== undefined) {
-      if (_typeof(defaultSettings[_key]) === "object" && _typeof(userSettings[_key]) === "object") {
-        objectAssign(defaultSettings[_key], userSettings[_key]);
+  for (var key in defaultSettings) {
+    if (userSettings[key] !== undefined) {
+      if (_typeof(defaultSettings[key]) === "object" && _typeof(userSettings[key]) === "object") {
+        objectAssign(defaultSettings[key], userSettings[key]);
       } else {
-        defaultSettings[_key] = userSettings[_key];
+        defaultSettings[key] = userSettings[key];
       }
-    }
-  }
-
-  for (key in userSettings) {
-    if (_typeof(defaultSettings[key]) === "object" && _typeof(userSettings[key]) === "object") {
-      objectAssign(defaultSettings[key], userSettings[key]);
-    } else {
-      defaultSettings[key] = userSettings[key];
     }
   }
 
@@ -243,7 +233,7 @@ exports.offset = offset;
 function parentWithClass(el, className) {
   var parent = el.parentNode;
 
-  while (!parent.classList.contains(className)) {
+  while ((' ' + parent.className + ' ').indexOf(' ' + className + ' ') == -1) {
     parent = parent.parentNode;
   }
 
@@ -267,6 +257,31 @@ function relativeTarget(target, relativeElement) {
 }
 
 exports.relativeTarget = relativeTarget;
+function serialize(form) {
+  // Setup our serialized data
+  var serialized = []; // Loop through each field in the form
+
+  for (var i = 0; i < form.elements.length; i++) {
+    var field = form.elements[i]; // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
+
+    if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue; // If a multi-select, get all selections
+
+    if (field.type === 'select-multiple') {
+      for (var n = 0; n < field.options.length; n++) {
+        if (!field.options[n].selected) continue;
+        serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
+      }
+    } // Convert field data to a query string
+    else if (field.type !== 'checkbox' && field.type !== 'radio' || field.checked) {
+        serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+      }
+  }
+
+  return serialized.join('&');
+}
+
+;
+exports.serialize = serialize;
 function stagger(arrayOfElements, func) {
   var delay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 500;
   var setDelay = delay;
