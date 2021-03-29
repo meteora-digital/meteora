@@ -16,7 +16,6 @@ function ajax(options) {
     url: '/',
     method: 'GET',
     data: '',
-    contentType: false,
     load: function load(response) {
       if (settings.success !== undefined && typeof settings.success === 'function') {
         if (response.explicitOriginalTarget !== undefined) {
@@ -33,15 +32,13 @@ function ajax(options) {
     }
   }, options);
 
-  if (settings.contentType != false) {
-    if (settings.method === 'GET') {
-      settings.contentType = 'application/json;charset=UTF-8';
-    } else if (settings.method === 'POST') {
-      settings.contentType = 'application/x-www-form-urlencoded';
-    } else {
-      console.warn('method: ', settings.method, 'is not valid.');
-      return false;
-    }
+  if (settings.method === 'GET') {
+    settings.contentType = 'application/json;charset=UTF-8';
+  } else if (settings.method === 'POST') {
+    settings.contentType = 'application/x-www-form-urlencoded';
+  } else {
+    console.warn('method: ', settings.method, 'is not valid.');
+    return false;
   }
 
   httpRequest.addEventListener("load", settings.load);
