@@ -9,6 +9,14 @@ function objectAssign(defaultSettings, userSettings) {
     }
   }
 
+  for (key in userSettings) {
+    if (typeof defaultSettings[key] === "object" && typeof userSettings[key] === "object") {
+      objectAssign(defaultSettings[key], userSettings[key])
+    }else {
+      defaultSettings[key] = userSettings[key];
+    }
+  }
+
   return defaultSettings;
 }
 

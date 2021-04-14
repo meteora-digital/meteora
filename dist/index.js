@@ -210,13 +210,21 @@ exports.nodeArray = nodeArray;
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function objectAssign(defaultSettings, userSettings) {
-  for (var key in defaultSettings) {
-    if (userSettings[key] !== undefined) {
-      if (_typeof(defaultSettings[key]) === "object" && _typeof(userSettings[key]) === "object") {
-        objectAssign(defaultSettings[key], userSettings[key]);
+  for (var _key in defaultSettings) {
+    if (userSettings[_key] !== undefined) {
+      if (_typeof(defaultSettings[_key]) === "object" && _typeof(userSettings[_key]) === "object") {
+        objectAssign(defaultSettings[_key], userSettings[_key]);
       } else {
-        defaultSettings[key] = userSettings[key];
+        defaultSettings[_key] = userSettings[_key];
       }
+    }
+  }
+
+  for (key in userSettings) {
+    if (_typeof(defaultSettings[key]) === "object" && _typeof(userSettings[key]) === "object") {
+      objectAssign(defaultSettings[key], userSettings[key]);
+    } else {
+      defaultSettings[key] = userSettings[key];
     }
   }
 
