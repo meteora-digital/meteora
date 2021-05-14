@@ -6,6 +6,10 @@
   "scripts": {
     "test": "gulp"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meteora-digital/meteora.git"
+  },
   "keywords": [
     "library",
     "helpers",
@@ -16,6 +20,9 @@
   ],
   "author": "Emmanuel Davies",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meteora-digital/meteora/issues"
+  },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
@@ -24,5 +31,6 @@
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.1",
     "gulp-plumber": "^1.2.1"
-  }
+  },
+  "homepage": "https://github.com/meteora-digital/meteora#readme"
 }

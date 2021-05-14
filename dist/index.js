@@ -32,13 +32,17 @@ function ajax(options) {
     }
   }, options);
 
-  if (settings.method === 'GET') {
-    settings.contentType = 'application/json;charset=UTF-8';
-  } else if (settings.method === 'POST') {
-    settings.contentType = 'application/x-www-form-urlencoded';
-  } else {
+  if (settings.method != 'GET' && settings.method != 'POST') {
     console.warn('method: ', settings.method, 'is not valid.');
     return false;
+  }
+
+  if (settings.contentType == undefined) {
+    if (settings.method === 'GET') {
+      settings.contentType = 'application/json;charset=UTF-8';
+    } else if (settings.method === 'POST') {
+      settings.contentType = 'application/x-www-form-urlencoded';
+    }
   }
 
   httpRequest.addEventListener("load", settings.load);
