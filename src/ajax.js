@@ -1,6 +1,6 @@
-function ajax(options) {
+function ajax(options = {}) {
   const httpRequest = new XMLHttpRequest();
-  const settings = Object.assign({
+  const settings = {
     url: '/',
     method: 'GET',
     data: '',
@@ -16,7 +16,14 @@ function ajax(options) {
     error: (response) => {
       console.warn(response);
     }
-  }, options);
+  };
+
+  // Object assign the settings
+  for (const key in settings) {
+    if (Object.hasOwnProperty.call(settings, key) && options[key] !== undefined) {
+      settings[key] = options[key];
+    }
+  }
 
   if (settings.method === 'GET') {
     settings.contentType = 'application/json;charset=UTF-8'

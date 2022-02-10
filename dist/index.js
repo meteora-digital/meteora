@@ -10,9 +10,10 @@ function Event(event, params) {
 }
 
 exports.Event = Event;
-function ajax(options) {
+function ajax() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var httpRequest = new XMLHttpRequest();
-  var settings = Object.assign({
+  var settings = {
     url: '/',
     method: 'GET',
     data: '',
@@ -30,7 +31,13 @@ function ajax(options) {
     error: function error(response) {
       console.warn(response);
     }
-  }, options);
+  }; // Object assign the settings
+
+  for (var key in settings) {
+    if (Object.hasOwnProperty.call(settings, key) && options[key] !== undefined) {
+      settings[key] = options[key];
+    }
+  }
 
   if (settings.method === 'GET') {
     settings.contentType = 'application/json;charset=UTF-8';
