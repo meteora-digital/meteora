@@ -28,6 +28,9 @@ function ajax() {
 
       ;
     },
+    success: function success() {
+      console.log('Your success function goes here.');
+    },
     error: function error(response) {
       console.warn(response);
     }

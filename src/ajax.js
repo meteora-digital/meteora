@@ -13,6 +13,9 @@ function ajax(options = {}) {
         }
       };
     },
+    success: () => {
+      console.log('Your success function goes here.');
+    },
     error: (response) => {
       console.warn(response);
     }
