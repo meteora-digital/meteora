@@ -38,7 +38,7 @@ function attach(el, event, func, userdelay) {
   }
 
   event.split(' ').forEach((type) => {
-    if (type === 'scroll' && passiveIfSupported) {
+    if (passiveIfSupported) {
       el.addEventListener(type, (e) => attachment(e), passiveIfSupported);
     }else {
       el.addEventListener(type, (e) => attachment(e));
