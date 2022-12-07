@@ -100,10 +100,10 @@ function attach(el, event, func, userdelay) {
 
       clearTimeout(debounce);
       debounce = setTimeout(function () {
-        func();
+        func(e);
       }, delay);
     } else {
-      func();
+      func(e);
     }
   };
 
